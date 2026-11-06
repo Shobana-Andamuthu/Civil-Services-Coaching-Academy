@@ -94,6 +94,13 @@
   }
 
   /* ---------- Mount ---------- */
+  if (!document.querySelector("link[rel*='icon']")) {
+    var fav = document.createElement("link");
+    fav.rel = "icon";
+    fav.type = "image/svg+xml";
+    fav.href = "assets/images/favicon.svg";
+    document.head.appendChild(fav);
+  }
   var page = document.body.getAttribute("data-page") || "";
   var hMount = document.getElementById("site-header");
   var fMount = document.getElementById("site-footer");
