@@ -1,0 +1,317 @@
+/* ==========================================================================
+   Civil Services Academy — Responsive rules (responsive.css)
+   Tablet rule: iPad / iPad Pro (touch devices up to 1366px) use the hamburger
+   navbar and never show more than 2 cards per row.
+   Nest Hub Max (1280x800) displays full navbar links, not the menu icon.
+   ========================================================================== */
+
+/* ---- Compact navbar: all widths <=1180px, plus touch devices up to 1366px
+       (except Nest Hub Max / 1280px viewports which display full navbar links) ---- */
+@media (max-width: 1180px),
+       (min-width: 1181px) and (max-width: 1279px) and (pointer: coarse),
+       (min-width: 1281px) and (max-width: 1366px) and (pointer: coarse) {
+  .hamburger { display: inline-flex; }
+  .nav-panel {
+    display: none;
+    position: absolute; top: var(--nav-h); inset-inline: 0;
+    flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 18px;
+    max-height: calc(100vh - var(--nav-h)); max-height: calc(100dvh - var(--nav-h));
+    overflow-y: auto; overscroll-behavior: contain;
+    padding: 16px var(--gutter) 24px;
+    background: var(--surface); border-bottom: 1px solid var(--border); box-shadow: var(--shadow);
+  }
+  .nav-panel.open { display: flex; }
+  .nav-list { flex-direction: column; align-items: stretch; gap: 2px; }
+  .nav-link { width: 100%; justify-content: space-between; padding: 14px 12px; font-size: 1rem; }
+  .nav-link.active::after { inset-inline: 12px; bottom: 6px; }
+  .sub-menu {
+    position: static; min-width: 0; margin: 2px 0 6px; padding: 4px 0 4px 12px;
+    border: 0; border-inline-start: 3px solid var(--gold); border-radius: 0; box-shadow: none; background: transparent;
+  }
+  [dir="rtl"] .sub-menu { padding: 4px 12px 4px 0; }
+  .sub-menu a { padding: 12px; }
+  .nav-actions { flex-wrap: wrap; width: 100%; padding-top: 14px; border-top: 1px solid var(--border); }
+  .nav-actions .btn { flex: 1 1 120px; width: auto; min-width: 0; }
+  .nav-actions .tools { display: flex !important; gap: 10px; flex: 0 0 100%; width: 100%; }
+  .nav-actions .tools .icon-btn { flex: 1; width: auto; }
+}
+
+/* ---- Nest Hub Max view (1280x800): display navbar links, do not use menu icon ---- */
+@media (width: 1280px),
+       (width: 1280px) and (height: 800px),
+       (min-width: 1200px) and (max-width: 1280px) and (pointer: coarse),
+       (min-width: 1279px) and (max-width: 1281px) {
+  .hamburger { display: none !important; }
+  .nav-panel {
+    display: flex !important;
+    position: static !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 20px !important;
+    max-height: none !important;
+    overflow-y: visible !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+  .nav-panel.open { display: flex !important; }
+  .nav-list {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 4px !important;
+  }
+  .nav-link {
+    width: auto !important;
+    justify-content: flex-start !important;
+    padding: 10px 14px !important;
+    font-size: 0.95rem !important;
+  }
+  .nav-link.active::after {
+    inset-inline: 14px !important;
+    bottom: 3px !important;
+  }
+  .sub-menu {
+    display: none !important;
+    position: absolute !important;
+    top: calc(100% + 8px) !important;
+    inset-inline-start: 0 !important;
+    min-width: 190px !important;
+    padding: 8px !important;
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 12px !important;
+    box-shadow: var(--shadow) !important;
+    z-index: 5 !important;
+  }
+  [dir="rtl"] .sub-menu {
+    padding: 8px !important;
+  }
+  .has-sub.open > .sub-menu {
+    display: block !important;
+  }
+  .sub-menu a {
+    padding: 10px 14px !important;
+  }
+  .nav-actions {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 10px !important;
+    flex: none !important;
+    width: auto !important;
+    padding-top: 0 !important;
+    border-top: 0 !important;
+  }
+  .nav-actions .btn {
+    flex: none !important;
+    height: var(--btn-h) !important;
+    width: 132px !important;
+    min-width: 132px !important;
+    padding: 0 16px !important;
+  }
+  .nav-actions .tools {
+    display: contents !important;
+    flex: none !important;
+    width: auto !important;
+  }
+  .nav-actions .tools .icon-btn {
+    flex: none !important;
+    width: var(--btn-h) !important;
+  }
+}
+
+/* ---- Large tablets & small laptops ---- */
+@media (max-width: 1180px) {
+  :root { --nav-h: 70px; }
+  .grid-3, .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .split { grid-template-columns: minmax(0, 1fr); }
+  .split .media { order: -1; max-width: 640px; width: 100%; margin-inline: auto; }
+}
+
+/* iPad Pro landscape (touch, 1181–1366px): still max 2 cards per row */
+@media (min-width: 1181px) and (max-width: 1366px) and (pointer: coarse) {
+  .grid-3, .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ---- Login: split screen only while both halves are wide enough ---- */
+@media (max-width: 899px) {
+  .auth { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+  .auth-visual { padding: 28px var(--gutter); justify-content: center; }
+  .auth-visual p { display: none; }
+  .auth-visual h2 { margin: 0; font-size: 1.4rem; }
+  .auth-visual .eyebrow { margin-bottom: 6px; }
+  .auth-form-wrap { padding: 32px var(--gutter) 48px; align-items: flex-start; }
+}
+
+/* ---- Dashboard: sidebar becomes a horizontally scrollable menu ---- */
+@media (max-width: 1180px) {
+  .dash { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr; align-content: start; }
+  .sidebar { top: var(--nav-h); height: auto; align-self: start; z-index: 50; flex-direction: row; align-items: center; border-inline-end: 0; border-bottom: 1px solid var(--border); }
+  .side-title, .side-foot { display: none; }
+  .side-nav { display: flex; flex-direction: row; align-items: center; gap: 6px; padding: 10px var(--gutter); overflow-x: auto; overflow-y: hidden; }
+  .side-link { width: auto; height: auto; align-self: center; flex: none; white-space: nowrap; padding: 10px 14px; }
+  .dash-grid.two { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 900px) { .p-text { display: none; } .profile { padding-inline: 5px; } }
+@media (max-width: 480px) { .dash-tools .logout-btn { width: var(--btn-h); padding: 0; } .dash-tools .logout-btn .lbl { display: none; } }
+@media (max-width: 480px) { .dash-header .brand-text { display: none; } }
+@media (max-width: 480px) {
+  .auth-header .brand { flex: 1 1 auto; min-width: 0; }
+  .auth-header .brand-text { min-width: 0; }
+  .auth-header .brand-name { font-size: 0.9rem; white-space: normal; }
+  .auth-header .brand-tag { display: none; }
+}
+@media (max-width: 280px) { .profile { display: none; } .dash-tools, .tools-row { gap: 6px; } }
+@media (max-width: 240px) {
+  .dash-header .icon-btn, .auth-header .icon-btn, .dash-tools .logout-btn { width: 36px; height: 36px; }
+  .dash-header .brand-mark, .auth-header .brand-mark { width: 34px; height: 34px; }
+  .auth-header .brand-text { display: none; }
+  .chart { height: 180px; }
+}
+
+/* ---- Phase 2 components ---- */
+@media (max-width: 1180px) {
+  .stats-bar { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .feature-split { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 820px) {
+  .row-item { grid-template-columns: 56px 1fr; }
+  .row-item .link-arrow { grid-column: 2; }
+  .cta-gold .inner { flex-direction: column; align-items: flex-start; }
+  .form-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 360px) {
+  :root { --page-hero-h: 340px; }
+  .row-item { grid-template-columns: 1fr; padding: 18px; }
+  .row-item .link-arrow { grid-column: 1; }
+  .stats-bar { grid-template-columns: 1fr; }
+  .mini-topper { flex-direction: column; align-items: flex-start; }
+  .feature-quote { padding: 20px; }
+  .feature-quote .who { align-items: flex-start; }
+}
+
+/* ---- Home 1 hero: stack below 900px ---- */
+@media (max-width: 899px) {
+  .hero-grid { grid-template-columns: minmax(0, 1fr); }
+  .hero-grid { gap: clamp(16px, 3vh, 32px); }
+  .hero-visual { margin-inline: auto; width: min(100%, 420px, 34vh); width: min(100%, 420px, 34svh); }
+  .hero-copy h1 { font-size: clamp(1.7rem, 5.2vw, 2.6rem); margin-bottom: 14px; }
+  .hero-copy .btn-row { margin-top: 20px; }
+  .pillars { margin-top: 18px; }
+  .hero-copy { text-align: center; }
+  .hero-copy .eyebrow::before { display: none; }
+  .hero-copy .lead { margin-inline: auto; }
+  .hero-copy .btn-row, .pillars { justify-content: center; }
+}
+
+/* ---- Tablet portrait ---- */
+@media (max-width: 820px) {
+  :root { --page-hero-h: 300px; }
+  .hero-copy { text-align: center; }
+  .hero-copy .lead { margin-inline: auto; }
+  .hero-copy .btn-row, .pillars { justify-content: center; }
+  .hero-badge { inset-inline-start: 0; }
+}
+
+/* ---- Mobile ---- */
+@media (max-width: 640px) {
+  :root { --page-hero-h: 260px; --section-y: 48px; }
+  .grid-2, .grid-3, .grid-4, .footer-grid { grid-template-columns: minmax(0, 1fr); }
+  .hero-visual { width: min(100%, 320px, 34vh); width: min(100%, 320px, 34svh); }
+  .hero-badge { position: static; margin: 18px auto 0; width: auto; max-width: 100%; }
+  .btn-row .btn { flex: 1 1 100%; }
+  .brand-tag { display: none; }
+  .back-top { inset-inline-end: 14px; bottom: 14px; }
+}
+
+@media (max-width: 480px) { .hero-visual { --off: 8px; } }
+
+/* ---- Home 1 hero: phones fit one screen (decorative pillars + badge hidden) ---- */
+@media (max-width: 640px) {
+  .hero-home .pillars, .hero-home .hero-badge { display: none; }
+  .hero-visual { width: min(100%, 320px, 36vh); width: min(100%, 320px, 36svh); }
+  .hero-copy .lead { font-size: 0.95rem; }
+  .hero-copy .btn-row { flex-wrap: nowrap; gap: 10px; margin-top: 16px; }
+  .hero-copy .btn-row .btn { flex: 1 1 0; min-width: 0; padding-inline: 10px; font-size: 0.9rem; }
+  .hero-copy .eyebrow { margin-bottom: 10px; }
+  .hero-copy h1 { margin-bottom: 10px; }
+}
+
+@media (max-width: 640px) and (max-height: 700px) {
+  .hero-home .hero-copy .lead { display: none; }
+  .hero-visual { width: min(100%, 320px, 40vh); width: min(100%, 320px, 40svh); }
+}
+@media (max-width: 339px) { .hero-copy .btn-row { flex-wrap: wrap; } .hero-copy .btn-row .btn { flex: 1 1 100%; } }
+
+/* ---- Landscape phones: keep two columns so the hero fits the short screen ---- */
+@media (min-width: 640px) and (max-width: 899px) and (orientation: landscape) and (max-height: 520px) {
+  .hero-grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); }
+  .hero-copy { text-align: start; }
+  .hero-copy .lead { margin-inline: 0; font-size: .92rem; }
+  .hero-copy .btn-row, .pillars { justify-content: flex-start; }
+  .hero-copy h1 { font-size: 1.45rem; margin-bottom: 8px; }
+  .hero-home { padding-block: 10px; }
+  .hero-copy .btn-row { margin-top: 14px; }
+  .hero-visual { margin-inline-start: auto; margin-inline-end: 0; width: min(100%, 300px, 62vh); width: min(100%, 300px, 62svh); }
+  .hero-home .pillars { display: none; }
+  .hero-home .hero-badge { display: none; }
+}
+
+/* ---- Very small screens (down to 200px) ---- */
+@media (max-width: 360px) {
+  .brand { flex: 1 1 0; min-width: 0; }
+  .hamburger { flex: none; }
+  .brand-mark { width: 38px; height: 38px; font-size: 0.9rem; }
+  .brand-name { font-size: 0.95rem; white-space: normal; }
+  .card-body { padding: 18px; }
+  .btn { padding: 0 14px; white-space: normal; height: auto; min-height: var(--btn-h); padding-block: 8px; }
+  .nav-actions .btn { min-width: 0; }
+}
+@media (max-width: 240px) {
+  :root { --gutter: 10px; }
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.3rem; }
+  .brand-name { font-size: 0.85rem; }
+  .bars { gap: 4px; padding-inline: 8px; }
+}
+
+/* Shared inner-page hero height at very small widths (same value on every page) */
+@media (max-width: 360px) { :root { --page-hero-h: 340px; } }
+@media (max-width: 240px) { :root { --page-hero-h: 420px; } }
+
+/* ---- Phase 4 components ---- */
+@media (max-width: 1180px) {
+  .loc-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 820px) {
+  .mosaic { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
+  .mosaic .m-tall { grid-row: auto; min-height: 320px; }
+  .timeline::before, .tl-item::after { inset-inline-start: 16px; }
+  .tl-item { grid-template-columns: minmax(0, 1fr); }
+  .tl-card, .tl-item:nth-child(even) .tl-card { grid-column: 1; margin-inline: 44px 0; }
+}
+@media (max-width: 360px) {
+  .tl-card, .tl-item:nth-child(even) .tl-card { padding: 16px; margin-inline: 34px 0; }
+  .map-frame, .map-frame iframe { min-height: 280px; }
+}
+
+/* ---- Wide screens ---- */
+@media (min-width: 1920px) {
+  :root { --container: 1360px; }
+}
+@media (min-width: 2200px) {
+  :root { --container: 1560px; }
+  html { font-size: 18px; }
+}
+
+/* ---- Short viewports (landscape phones): compact Home hero spacing ---- */
+@media (max-height: 520px) {
+  .hero-full { padding-block: 20px 72px; }
+  .hero-full h1 { font-size: clamp(1.4rem, 4vw, 2rem); margin-bottom: 8px; }
+  .hero-full p { margin-bottom: 14px; font-size: .92rem; }
+  .hero-full .eyebrow { margin-bottom: 8px; }
+}
